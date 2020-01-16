@@ -126,6 +126,7 @@ echo "remove any installed pandas package"
 echo "w/o removing anything else"
 $IS_SUDO conda remove pandas -y --force || true
 $IS_SUDO $ARCHICONDA_PYTHON -m pip uninstall -y pandas || true
+$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 
 echo
 echo "remove postgres if has been installed with conda"
@@ -159,7 +160,6 @@ echo "[Install pandas]"
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install numpy
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install hypothesis
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 $IS_SUDO chmod -R 777 /home/travis/.cache/
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install --no-build-isolation -e .
 
