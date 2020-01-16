@@ -1,5 +1,5 @@
 #!/bin/bash -e
-IS_SUDO="sudo"  #archiconda executes commands with sudo only
+IS_SUDO="sudo"  #archiconda executes commands with sudo only.
 ARCHICONDA_PYTHON="python3.7"
 # edit the locale file if needed
 if [[ "$(uname)" == "Linux" && -n "$LC_ALL" ]]; then
