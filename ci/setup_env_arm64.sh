@@ -126,7 +126,6 @@ echo "remove any installed pandas package"
 echo "w/o removing anything else"
 $IS_SUDO conda remove pandas -y --force || true
 $IS_SUDO $ARCHICONDA_PYTHON -m pip uninstall -y pandas || true
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 
 echo
 echo "remove postgres if has been installed with conda"
@@ -140,6 +139,7 @@ conda list pandas
 # Make sure any error below is reported as such
 
 echo "[Build extensions]"
+$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 sudo chmod -R 777 /home/travis/.ccache
 python setup.py build_ext -q -i
 
