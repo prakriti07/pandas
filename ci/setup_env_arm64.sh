@@ -139,6 +139,7 @@ conda list pandas
 # Make sure any error below is reported as such
 
 echo "[Build extensions]"
+$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 sudo chmod -R 777 /home/travis/.ccache
 python setup.py build_ext -q -i
 
@@ -159,7 +160,6 @@ echo "[Install pandas]"
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install numpy
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install hypothesis
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install cython
 $IS_SUDO chmod -R 777 /home/travis/.cache/
 $IS_SUDO $ARCHICONDA_PYTHON -m pip install --no-build-isolation -e .
 
