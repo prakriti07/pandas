@@ -139,7 +139,7 @@ conda list pandas
 # Make sure any error below is reported as such
 
 echo "[Build extensions]"
-pip install cython
+sudo pip install cython
 sudo chmod -R 777 /home/travis/.ccache
 $ARCHICONDA_PYTHON setup.py build_ext -q -i
 
