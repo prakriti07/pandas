@@ -140,9 +140,9 @@ conda list pandas
 # Make sure any error below is reported as such
 
 echo "[Build extensions]"
-sudo pip install cython
+sudo python -m pip install cython
 sudo chmod -R 777 /home/travis/.ccache
-$ARCHICONDA_PYTHON setup.py build_ext -q -i
+python setup.py build_ext -q -i
 
 # XXX: Some of our environments end up with old versions of pip (10.x)
 # Adding a new enough version of pip to the requirements explodes the
