@@ -142,7 +142,7 @@ conda list pandas
 echo "[Build extensions]"
 sudo python -m pip install cython
 sudo chmod -R 777 /home/travis/.ccache
-python setup.py build_ext -q -i
+sudo python setup.py build_ext -q -i
 
 # XXX: Some of our environments end up with old versions of pip (10.x)
 # Adding a new enough version of pip to the requirements explodes the
