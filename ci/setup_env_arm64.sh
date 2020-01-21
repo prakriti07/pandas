@@ -51,7 +51,7 @@ $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO cp $MINICONDA_DIR/bin/* /usr/bin/
 $IS_SUDO rm /usr/bin/lsb_release
 
-export PATH=$MINICONDA_DIR/bin:$PATH
+export PATH=/usr/bin:$MINICONDA_DIR/bin:$PATH
 
 echo
 echo "which conda"
