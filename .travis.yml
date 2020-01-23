@@ -36,7 +36,7 @@ matrix:
     - env:
         - JOB="3.7" ENV_FILE="ci/deps/travis-37.yaml" PATTERN="(not slow and not network)"
         
-    - dist: trusty
+    - dist: xenial
       os: linux
       sudo: true
       arch: arm64
