@@ -38,20 +38,17 @@ else
   exit 1
 fi
 
-wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.2/Archiconda3-0.2.2-Linux-aarch64.sh" -O archiconda.sh
+wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.2/Archiconda3-0.2.3-Linux-aarch64.sh" -O archiconda.sh
 chmod +x archiconda.sh
-$IS_SUDO apt-get install python-dev
-$IS_SUDO apt-get install python3-pip
-$IS_SUDO apt-get install lib$ARCHICONDA_PYTHON-dev
-$IS_SUDO apt-get install xvfb
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:/usr/local/bin/python
 ./archiconda.sh -b
 echo "chmod MINICONDA_DIR"
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO cp $MINICONDA_DIR/bin/* /usr/bin/
+$IS_SUDO cp $MINICONDA_DIR/lib/libpython* /usr/lib/
 $IS_SUDO rm /usr/bin/lsb_release
 
 export PATH=/usr/bin:$MINICONDA_DIR/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/bin/python:$LD_LIBRARY_PATH
 
 echo
 echo "which conda"
