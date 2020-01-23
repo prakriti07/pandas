@@ -38,7 +38,7 @@ else
   exit 1
 fi
 
-wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh" -O archiconda.sh
+wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.2/Archiconda3-0.2.2-Linux-aarch64.sh" -O archiconda.sh
 chmod +x archiconda.sh
 $IS_SUDO apt-get install python-dev
 $IS_SUDO apt-get install python3-pip
