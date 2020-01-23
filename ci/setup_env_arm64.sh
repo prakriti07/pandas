@@ -1,5 +1,5 @@
 #!/bin/bash -e
-IS_SUDO="sudo"  #archiconda executes commands with sudo only.
+IS_SUDO="sudo"
 ARCHICONDA_PYTHON="python3.7"
 echo `which python`
 # edit the locale file if needed
@@ -25,28 +25,15 @@ fi
 
 echo "Install Miniconda"
 UNAME_OS=$(uname)
-if [[ "$UNAME_OS" == 'Linux' ]]; then
-    if [[ "$BITS32" == "yes" ]]; then
-        CONDA_OS="Linux-x86"
-    else
-        CONDA_OS="Linux-x86_64"
-    fi
-elif [[ "$UNAME_OS" == 'Darwin' ]]; then
-    CONDA_OS="MacOSX-x86_64"
-else
-  echo "OS $UNAME_OS not supported"
-  exit 1
-fi
 
-wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.2/Archiconda3-0.2.3-Linux-aarch64.sh" -O archiconda.sh
+wget -q "https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh" -O archiconda.sh
 chmod +x archiconda.sh
-./archiconda.sh -b
+./archiconda.sh -b 
 echo "chmod MINICONDA_DIR"
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO cp $MINICONDA_DIR/bin/* /usr/bin/
 $IS_SUDO cp $MINICONDA_DIR/lib/libpython* /usr/lib/
 $IS_SUDO rm /usr/bin/lsb_release
-
 export PATH=/usr/bin:$MINICONDA_DIR/bin:$PATH
 export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/bin/python:$LD_LIBRARY_PATH
 
@@ -101,9 +88,7 @@ conda remove --all -q -y -n pandas-dev
 echo
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 $IS_SUDO conda install botocore
-$IS_SUDO conda install numpy
 $IS_SUDO conda install python-dateutil=2.8.0
-$IS_SUDO conda install hypothesis
 $IS_SUDO conda install pytz
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
 
@@ -123,7 +108,7 @@ echo
 echo "remove any installed pandas package"
 echo "w/o removing anything else"
 $IS_SUDO conda remove pandas -y --force || true
-$IS_SUDO $ARCHICONDA_PYTHON -m pip uninstall -y pandas || true
+$IS_SUDO pip uninstall -y pandas || true
 
 echo
 echo "remove postgres if has been installed with conda"
@@ -137,9 +122,8 @@ conda list pandas
 # Make sure any error below is reported as such
 
 echo "[Build extensions]"
-sudo python -m pip install cython
 sudo chmod -R 777 /home/travis/.ccache
-python -m pip install -e -q . #sudo python setup.py build_ext -q -i
+python setup.py build_ext -q -i
 
 # XXX: Some of our environments end up with old versions of pip (10.x)
 # Adding a new enough version of pip to the requirements explodes the
@@ -151,15 +135,14 @@ echo "[Updating pip]"
 sudo chmod -R 777 /home/travis/archiconda3/envs/pandas-dev/lib/$ARCHICONDA_PYTHON/site-packages
 #$IS_SUDO $ARCHICONDA_PYTHON -m pip install pytest-forked
 #$IS_SUDO $ARCHICONDA_PYTHON -m pip install pytest-xdist
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install --no-deps -U pip wheel setuptools
+$IS_SUDO pip install --no-deps -U pip wheel setuptools
 sudo chmod -R 777 $MINICONDA_DIR
 
 echo "[Install pandas]"
 $IS_SUDO chmod -R 777 $MINICONDA_DIR
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install numpy
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install hypothesis
+$IS_SUDO pip install numpy hypothesis cython
 $IS_SUDO chmod -R 777 /home/travis/.cache/
-$IS_SUDO $ARCHICONDA_PYTHON -m pip install --no-build-isolation -e .
+$IS_SUDO pip install --no-build-isolation -e .
 
 echo
 echo "conda list"
