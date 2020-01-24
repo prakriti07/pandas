@@ -135,7 +135,7 @@ echo "[Updating pip]"
 sudo chmod -R 777 /home/travis/archiconda3/envs/pandas-dev/lib/$ARCHICONDA_PYTHON/site-packages
 #$IS_SUDO $ARCHICONDA_PYTHON -m pip install pytest-forked
 #$IS_SUDO $ARCHICONDA_PYTHON -m pip install pytest-xdist
-$IS_SUDO pip install --no-deps -U pip wheel setuptools
+pip install --no-deps -U pip wheel setuptools
 sudo chmod -R 777 $MINICONDA_DIR
 
 echo "[Install pandas]"
